@@ -6,11 +6,26 @@
     <div class="moviesAllTable">
       <div class="moviesAllHeaderRow">
         <div class="headerItem Favorite">Favorite</div>
-        <div class="headerItem Title" (click)="sortAlphabetic('title')">Title</div>
-        <div class="headerItem VoteCount" (click)="sortNumeric('vote_count')">Vote Count</div>
-        <div class="headerItem AverageVote" (click)="sortNumeric('vote_average')">Average Vote</div>
-        <div class="headerItem Popularity" (click)="sortNumeric('popularity')">Popularity</div>
-        <div class="headerItem Overview" (click)="sortAlphabetic('overview')">Overview</div>
+        <div class="headerItem Title clickable" (click)="sortAlphabetic('title')">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+          Title
+        </div>
+        <div class="headerItem VoteCount clickable" (click)="sortNumeric('vote_count')">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+          Vote Count
+        </div>
+        <div class="headerItem AverageVote clickable" (click)="sortNumeric('vote_average')">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+          Average Vote
+        </div>
+        <div class="headerItem Popularity clickable" (click)="sortNumeric('popularity')">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+          Popularity
+        </div>
+        <div class="headerItem Overview clickable" (click)="sortAlphabetic('overview')">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+          Overview
+        </div>
         <div class="headerItem Poster">Poster</div>
         <div class="headerItem Delete">Delete</div>
       </div>

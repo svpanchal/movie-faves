@@ -47,9 +47,12 @@ $lemon: #fbdb64;
     font-weight: bold;
     border-bottom: 2px solid $marigold;
     height: 2em;
+    color: $navy;
 }
 .headerItem {
     flex: 1;
+    padding-left: 10px;
+    // border: 1px solid salmon;
 }
 .moviesAllDetailRow {
     display: flex;
@@ -57,6 +60,9 @@ $lemon: #fbdb64;
 }
 .detailItem {
     flex: 1;
+    padding: 15px 0px 15px 10px;
+    border-bottom: 1px solid gray;
+    // border: 1px solid blue;
 }
 .moviesFavoriteContainer {
     
@@ -73,5 +79,14 @@ $lemon: #fbdb64;
 }
 .icon {
     font-size: 1.5em;
+    cursor: pointer;
+}
+
+.moviePoster {
+    width: 100%;
+    height: 100%;
+}
+
+.clickable {
     cursor: pointer;
 }
