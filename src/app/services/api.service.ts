@@ -18,8 +18,7 @@ export const
 export class ApiService {
 
     private api_key = '8806289684a57014fc8d7bffd258a3f4';
-    // private apiBaseUrl = `https://api.themoviedb.org/3/movie/76341?api_key=${this.api_key}`;
-    private apiBaseUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${this.api_key}&language=en-US&page=1`;
+    private apiBaseUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${this.api_key}&language=en-US&page=`;
 
     constructor(
         private _httpClient: HttpClient,
@@ -27,9 +26,10 @@ export class ApiService {
 
     public callApiService<T>(req: HttpRequest<any>): Observable<T> {
         let response;
+        const pageNumber = req.url;
         switch (req.method) {
             case REQUEST_TYPE_GET:
-                response = this._httpClient.get<T>(`${this.apiBaseUrl}`);
+                response = this._httpClient.get<T>(`${this.apiBaseUrl}${pageNumber}`);
                 map(res => {
                     return res;
                 }),

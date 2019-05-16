@@ -13,4 +13,5 @@ export class Movie {
     adult: false;
     overview: string;
     release_date: string;
+    favorite?: boolean;
 }
