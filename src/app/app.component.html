@@ -44,9 +44,9 @@
         <div class="detailItem VoteCount">{{ movie?.vote_count}}</div>
         <div class="detailItem AverageVote">
           <span *ngIf="!isInputShown">{{ movie?.vote_average}}</span>
-          <input type="number" [(ngModel)]="movie.vote_average" (blur)="updateVoteAverage($event.target.value, movie)"
-            *ngIf="isInputShown">
-          <i *ngIf="!isInputShown" class="fa fa-pencil" (click)="showInputForEditVoteAverage(movie.id)"></i>
+          <input type="number" class="voteAvgInput" [(ngModel)]="movie.vote_average"
+            (blur)="updateVoteAverage($event.target.value, movie)" *ngIf="isInputShown">
+          <i *ngIf="!isInputShown" class="fa fa-pencil editIcon" (click)="showInputForEditVoteAverage(movie.id)"></i>
         </div>
         <div class="detailItem Popularity">{{ movie?.popularity}}</div>
         <div class="detailItem Overview">{{ movie?.overview}}</div>
@@ -54,7 +54,7 @@
           <img class="moviePoster" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2{{movie.poster_path}}">
         </div>
         <div class="detailItem Delete icon" (click)="deleteMovie(movie.id)">
-          <i class="fa fa-trash-o trashOutline" aria-hidden="true"></i>
+          <i class="fa fa-trash-o trashIcon" aria-hidden="true"></i>
         </div>
       </div>
     </div>

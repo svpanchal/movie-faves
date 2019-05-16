@@ -2,11 +2,12 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 $pink: #c61857;
-$navy: #000066;
+$navy: #000099;
 $maroon: #66023c;
 $teal: #1b8aa4;
 $marigold: #ffbb33;
 $lemon: #fbdb64;
+$lightGrey: #f6f6f6;
 
 .appContainer {
     font-family: 'Open Sans', sans-serif;
@@ -17,30 +18,25 @@ $lemon: #fbdb64;
     align-items: center;
     padding: 1em;
 }
-
 .appHeader {
     font-family: 'Pacifico', cursive;
     color: $pink;
     font-size: 3em;
 }
-
 .appSubHeader {
     color: $teal;
     font-size: 1.5em;
     font-weight: bold;
 }
-
 .moviesAllContainer, .moviesFavoriteContainer {
     display: flex;
     flex-flow: column;
 }
-
 .moviesAllTable .moviesFavesTable{
     display: flex;
     flex-flow: column;
     padding: 1.5em;
 }
-
 .moviesAllHeaderRow, .moviesFavesHeaderRow {
     display: flex;
     flex-flow: row nowrap;
@@ -64,8 +60,14 @@ $lemon: #fbdb64;
     border-bottom: 1px solid gray;
     // border: 1px solid blue;
 }
-.moviesFavoriteContainer {
-    
+.voteAvgInput {
+    height: 1.5em;
+    width: 4em;
+    border-radius: 4px;
+    border: 1.5px solid $navy;
+    background: $lightGrey;
+    padding: 4px;
+    font-weight: bold;
 }
 .starOutline {
     color: darkgrey;
@@ -74,19 +76,21 @@ $lemon: #fbdb64;
     color: $lemon;
     -webkit-text-stroke: 2px $marigold;
 }
-.trashOutline {
-    color: #000066;
+.trashIcon {
+    color: $navy;
 }
 .icon {
     font-size: 1.5em;
     cursor: pointer;
 }
-
+.editIcon {
+    color: $navy;
+    margin-left: 5px;
+}
 .moviePoster {
     width: 100%;
     height: 100%;
 }
-
 .clickable {
     cursor: pointer;
 }
