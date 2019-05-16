@@ -30,18 +30,18 @@ $lemon: #fbdb64;
     font-weight: bold;
 }
 
-.moviesAllContainer {
+.moviesAllContainer, .moviesFavoriteContainer {
     display: flex;
     flex-flow: column;
 }
 
-.moviesAllTable {
+.moviesAllTable .moviesFavesTable{
     display: flex;
     flex-flow: column;
     padding: 1.5em;
 }
 
-.moviesAllHeaderRow {
+.moviesAllHeaderRow, .moviesFavesHeaderRow {
     display: flex;
     flex-flow: row nowrap;
     font-weight: bold;
@@ -54,7 +54,7 @@ $lemon: #fbdb64;
     padding-left: 10px;
     // border: 1px solid salmon;
 }
-.moviesAllDetailRow {
+.moviesAllDetailRow, .moviesFavesDetailRow {
     display: flex;
     flex-flow: row nowrap;
 }

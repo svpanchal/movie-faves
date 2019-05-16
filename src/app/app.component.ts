@@ -16,6 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public title = 'turner-movie-favorites';
   public moviesAll: Array<Movie> = [];
   public moviesFavorite: Array<Movie> = [];
+  public showInput: boolean;
 
   constructor(
     private _fb: FormBuilder,
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.getMovies();
+    this.showInput = false;
 
   }
 
@@ -156,5 +158,27 @@ export class AppComponent implements OnInit, OnDestroy {
       default:
         console.log('we should never get here');
     }
+  }
+
+  public editVoteAverage(movieId): void {
+    this.showInput = true;
+  }
+
+  public updateVoteAverage(newValue, movieId): void {
+    if (!newValue) {
+      alert('You forgot to enter a value! Please enter a number');
+    }
+
+    if (!movieId) {
+      console.log('error in UpdateVoteAverage function');
+    }
+
+    this.showInput = false;
+    this.moviesFavorite.sort(function (a, b) {
+      const numA = a.vote_average;
+      const numB = b.vote_average;
+
+      return (numB - numA);
+    });
   }
 }

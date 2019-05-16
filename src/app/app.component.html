@@ -3,6 +3,7 @@
   <div class="appSubHeader">An application to organize and rate your favorite films</div>
 
   <div class="moviesAllContainer">
+    <div>All Movies</div>
     <div class="moviesAllTable">
       <div class="moviesAllHeaderRow">
         <div class="headerItem Favorite">Favorite</div>
@@ -41,7 +42,12 @@
         </div>
         <div class="detailItem Title">{{ movie?.title }}</div>
         <div class="detailItem VoteCount">{{ movie?.vote_count}}</div>
-        <div class="detailItem AverageVote">{{ movie?.vote_average}}</div>
+        <div class="detailItem AverageVote">
+          <span *ngIf="!showInput">{{ movie?.vote_average}}</span>
+          <input type="number" [(ngModel)]="movie.vote_average"
+            (blur)="updateVoteAverage($event.target.value, movie.id)" *ngIf="showInput">
+          <i *ngIf="!showInput" class="fa fa-pencil" (click)="editVoteAverage(movie.id)"></i>
+        </div>
         <div class="detailItem Popularity">{{ movie?.popularity}}</div>
         <div class="detailItem Overview">{{ movie?.overview}}</div>
         <div class="detailItem Poster">
@@ -53,5 +59,58 @@
       </div>
     </div>
   </div>
-  <div class="moviesFavoriteContainer"></div>
+
+  <div class="moviesFavoriteContainer">
+    <div>Top Rate & Faves</div>
+    <div class="moviesFavesTable">
+      <div class="moviesFavesHeaderRow">
+        <div class="headerItem Favorite">Favorite</div>
+        <div class="headerItem Title clickable" (click)="sortAlphabetic('title')">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+          Title
+        </div>
+        <div class="headerItem VoteCount clickable" (click)="sortNumeric('vote_count')">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+          Vote Count
+        </div>
+        <div class="headerItem AverageVote clickable" (click)="sortNumeric('vote_average')">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+          Average Vote
+        </div>
+        <div class="headerItem Popularity clickable" (click)="sortNumeric('popularity')">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+          Popularity
+        </div>
+        <div class="headerItem Overview clickable" (click)="sortAlphabetic('overview')">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+          Overview
+        </div>
+        <div class="headerItem Poster">Poster</div>
+        <!-- <div class="headerItem Delete">Delete</div> -->
+      </div>
+
+      <div class="moviesFavesDetailRow" *ngFor="let movie of moviesFavorite">
+        <div class="detailItem Favorite icon">
+          <div *ngIf="!movie.favorite" (click)="favoriteMovie(movie)"><i class="fa fa-star-o starOutline"
+              aria-hidden="true"></i>
+          </div>
+          <div *ngIf="movie.favorite" (click)="unFavoriteMovie(movie)"><i class="fa fa-star starFilled"
+              aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="detailItem Title">{{ movie?.title }}</div>
+        <div class="detailItem VoteCount">{{ movie?.vote_count}}</div>
+        <div class="detailItem AverageVote">{{ movie?.vote_average}}</div>
+        <div class="detailItem Popularity">{{ movie?.popularity}}</div>
+        <div class="detailItem Overview">{{ movie?.overview}}</div>
+        <div class="detailItem Poster">
+          <img class="moviePoster" src="https://image.tmdb.org/t/p/w370_and_h556_bestv2{{movie.poster_path}}">
+        </div>
+        <!-- <div class="detailItem Delete icon" (click)="deleteMovie(movie.id)">
+          <i class="fa fa-trash-o trashOutline" aria-hidden="true"></i>
+        </div> -->
+      </div>
+    </div>
+
+  </div>
 </div>
