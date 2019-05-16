@@ -118,3 +118,10 @@ $darkerGrey: #1E242E;
 .selected {
     color: $maroon;
 }
+.tabSeparator {
+    border-left: 4px solid $marigold;
+    height: 3.5em;
+    margin-left: 2.5em;
+    margin-top: 4px;
+    border-radius: 20px;
+}
