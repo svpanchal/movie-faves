@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+$pink: #c61857;
+$navy: #000099;
+$maroon: #66023c;
+$teal: #1b8aa4;
+$marigold: #ffbb33;
+$lemon: #fbdb64;
+$lightGrey: #f6f6f6;
+$darkGrey: darkgrey;
+$darkerGrey: #1E242E;
+
+.appContainer {
+    font-family: 'Open Sans', sans-serif;
+    display: flex;
+    flex-flow: column;
+    width: 100;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    color: $darkerGrey;
+}
+.appHeader {
+    font-family: 'Pacifico', cursive;
+    color: $pink;
+    font-size: 3em;
+}
+.tableHeader {
+    font-family: 'Pacifico', cursive;
+    color: $maroon;
+    font-size: 2.25em;
+    margin-bottom: 0.75em;
+    letter-spacing: 4px;
+    margin-left: 1em;
+}
+.appSubHeader {
+    color: $teal;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.moviesAllContainer, .moviesFavoriteContainer {
+    display: flex;
+    flex-flow: column;
+    margin-top: 4em;
+}
+.moviesAllTable, .moviesFavesTable {
+    border: 2px solid $marigold;
+    border-radius: 12px;
+    padding: 1em;
+}
+.moviesAllHeaderRow, .moviesFavesHeaderRow {
+    display: flex;
+    flex-flow: row nowrap;
+    font-weight: bold;
+    border-bottom: 2px solid $marigold;
+    height: 2em;
+    color: $navy;
+}
+.headerItem {
+    flex: 1;
+    padding-left: 10px;
+    font-size: 1.1em;
+}
+.moviesAllDetailRow, .moviesFavesDetailRow {
+    display: flex;
+    flex-flow: row nowrap;
+}
+.detailItem {
+    flex: 1;
+    padding: 15px 0px 15px 10px;
+    border-bottom: 1.5px solid $darkGrey;
+    // border: 1px solid blue;
+}
+.voteAvgInput {
+    height: 1.5em;
+    width: 4em;
+    border-radius: 4px;
+    border: 1.5px solid $navy;
+    background: $lightGrey;
+    padding: 4px;
+    font-weight: bold;
+}
+.starOutline {
+    color: $darkGrey;
+}
+.starFilled {
+    color: $lemon;
+    -webkit-text-stroke: 2px $marigold;
+}
+.trashIcon {
+    color: $navy;
+    margin-left: 0.75em;
+}
+.icon {
+    font-size: 1.75em;
+    cursor: pointer;
+}
+.editIcon {
+    color: $navy;
+    margin-left: 5px;
+}
+.moviePoster {
+    width: 100%;
+    height: 100%;
+}
+.clickable {
+    cursor: pointer;
+}
