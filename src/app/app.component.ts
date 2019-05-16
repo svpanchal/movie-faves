@@ -1,11 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { AppStartupActions } from '../app/actionHandlers/app-startup.actions';
 import { TopRatedMoviesResponse } from '../app/models/topRatedMoviesResponse';
 import { Movie } from '../app/models/movie';
-import { d } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-root',
@@ -16,16 +14,15 @@ export class AppComponent implements OnInit, OnDestroy {
   public title = 'turner-movie-favorites';
   public moviesAll: Array<Movie> = [];
   public moviesFavorite: Array<Movie> = [];
-  public showInput: boolean;
+  public isInputShown: boolean;
 
   constructor(
-    private _fb: FormBuilder,
     private _appStartupActions: AppStartupActions,
   ) { }
 
   public ngOnInit() {
     this.getMovies();
-    this.showInput = false;
+    this.isInputShown = false;
 
   }
 
@@ -34,65 +31,95 @@ export class AppComponent implements OnInit, OnDestroy {
   private getMovies(): void {
     this._appStartupActions.getMovieData(103)
       .subscribe(
-        (response) => {
+        (response: TopRatedMoviesResponse) => {
           if (response) {
-            console.log('SUCCESS =====>', response);
             if (response && response.results && response.results.length) {
               this.moviesAll = response.results;
-              console.log(this.moviesAll);
 
               if (this.moviesAll && this.moviesAll.length) {
                 this.moviesAll.filter(movie => {
                   const minimumFavoriteVoteAverage = 7;
                   if (movie.vote_average > minimumFavoriteVoteAverage) {
                     this.moviesFavorite.push(movie);
-                    console.log('HERE ARE THE FAVORITE MOVIES', this.moviesFavorite);
                   }
                 });
               }
             }
           } else {
-            console.log('Valid response from GET movies call not returned');
-            // TODO show sweetalert here bringing visibility to user
+            console.log('Response from GET movies call not returned');
           }
         },
         (err: HttpErrorResponse) => {
           console.log('HttpErrorResponse =>', err.error, err.message);
-          // TODO show sweetalert here bringing visibility to user
         }
       );
   }
 
   public favoriteMovie(movie: Movie): void {
     if (!movie) {
-      console.log('Uh oh something went wrong');
+      console.log('ERROR: favoriteMovie() - missing movie');
+      return;
     }
 
     movie.favorite = true;
+
+    const movieIndex = this.moviesFavorite.findIndex((mv: Movie) => mv.id === movie.id);
+    if (!!movieIndex) {
+      this.moviesFavorite.unshift(movie);
+      this.sortMovieFavorites();
+    }
+
   }
 
   public unFavoriteMovie(movie: Movie): void {
     if (!movie) {
-      console.log('Error unFavoriteMovie()');
+      console.log('ERROR: unFavoriteMovie() - missing movie');
+      return;
     }
 
     movie.favorite = false;
+    const movieIndex = this.moviesAll.findIndex((mv: Movie) => mv.id === movie.id);
+    this.moviesFavorite.splice(movieIndex, 1);
+  }
+
+  public unFavoriteTopRatedMovie(movie: Movie): void {
+    if (!movie) {
+      console.log('ERROR: unFavoriteTopRatedMovie() - missing movie');
+      return;
+    }
+
+    movie.favorite = false;
+
+    if (movie.vote_average < 7) {
+      const movieIndex = this.moviesFavorite.findIndex((mv: Movie) => mv.id === movie.id);
+      this.moviesFavorite.splice(movieIndex, 1);
+      this.sortMovieFavorites();
+    }
+  }
+
+  private sortMovieFavorites(): void {
+    this.moviesFavorite.sort(function (a, b) {
+      const numA = a.vote_average;
+      const numB = b.vote_average;
+
+      return (numB - numA);
+    });
   }
 
   public deleteMovie(movieId): void {
     if (!movieId) {
-      console.log('error deleteMovie()');
+      console.log('ERROR: deleteMovie() - missing movieId');
+      return;
     }
 
-    const movieToDelete = this.moviesAll.findIndex(movie => movie.id === movieId);
-    console.log('the movie you want to delete is', movieToDelete);
-    this.moviesAll.splice(movieToDelete, 1);
-    console.log(this.moviesAll);
+    const movieIndex = this.moviesAll.findIndex(movie => movie.id === movieId);
+    this.moviesAll.splice(movieIndex, 1);
   }
 
-  public sortAlphabetic(field: string): void {
+  public sortColumnAlphabetic(field: string): void {
     if (!field) {
-      console.log('ERROR IN SORT NUMBERIC METHOD', field);
+      console.log('ERROR: sortAlphabetic() - missing field');
+      return;
     }
 
     switch (field) {
@@ -103,7 +130,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
           return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
         });
-
         break;
 
       case 'overview':
@@ -113,18 +139,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
           return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
         });
-
         break;
 
       default:
-        console.log('error');
+        console.log('ERROR: sortAlphabetic() - default case');
     }
 
   }
 
-  public sortNumeric(field: string): void {
+  public sortColumnNumeric(field: string): void {
     if (!field) {
-      console.log('error in sort numeric function', field);
+      console.log('ERROR: sortNumeric() - missing field');
+      return;
     }
 
     switch (field) {
@@ -156,29 +182,50 @@ export class AppComponent implements OnInit, OnDestroy {
         break;
 
       default:
-        console.log('we should never get here');
+        console.log('ERROR: sortNumeric() - default case');
     }
   }
 
-  public editVoteAverage(movieId): void {
-    this.showInput = true;
+  public showInputForEditVoteAverage(): void {
+    this.isInputShown = true;
   }
 
-  public updateVoteAverage(newValue, movieId): void {
-    if (!newValue) {
+  public updateVoteAverage(newVoteAvg, movie: Movie): void {
+    if (!newVoteAvg) {
       alert('You forgot to enter a value! Please enter a number');
+      return;
     }
 
-    if (!movieId) {
-      console.log('error in UpdateVoteAverage function');
+    if (!movie) {
+      console.log('ERROR: UpdateVoteAverage() - missing movie');
+      return;
     }
 
-    this.showInput = false;
+    const newAverageVoteNum = parseInt(newVoteAvg, 10);
+    this.moviesFavorite = this.resetMovieFavoritesByAvgVote(newAverageVoteNum, movie);
     this.moviesFavorite.sort(function (a, b) {
       const numA = a.vote_average;
       const numB = b.vote_average;
 
       return (numB - numA);
     });
+
+    this.isInputShown = false;
   }
+
+  private resetMovieFavoritesByAvgVote(averageVote, movie: Movie): Array<Movie> {
+    if (!averageVote || !movie) {
+      console.log('ERROR: resetMovieFavoritesByAvgVote()');
+      return;
+    }
+
+    if (averageVote < 7) {
+      const filteredMovies = this.moviesFavorite.filter((mv: Movie) => mv.id !== movie.id);
+      return filteredMovies;
+    } else if (averageVote >= 7) {
+      this.moviesFavorite.unshift(movie);
+      return this.moviesFavorite;
+    }
+  }
+
 }
