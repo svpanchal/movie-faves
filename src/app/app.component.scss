@@ -28,21 +28,29 @@ $darkerGrey: #1E242E;
 }
 .tableHeader {
     font-family: 'Pacifico', cursive;
-    color: $maroon;
+    color: $darkGrey;
     font-size: 2.25em;
     margin-bottom: 0.75em;
     letter-spacing: 4px;
     margin-left: 1em;
+    cursor: pointer;
 }
 .appSubHeader {
     color: $teal;
     font-size: 1.5em;
     font-weight: bold;
 }
+.tablesSection {
+    margin-top: 3em;
+}
 .moviesAllContainer, .moviesFavoriteContainer {
     display: flex;
     flex-flow: column;
     margin-top: 4em;
+}
+.tabHeaderContainer {
+    display: flex;
+    flex-flow: row nowrap;
 }
 .moviesAllTable, .moviesFavesTable {
     border: 2px solid $marigold;
@@ -106,4 +114,7 @@ $darkerGrey: #1E242E;
 }
 .clickable {
     cursor: pointer;
+}
+.selected {
+    color: $maroon;
 }

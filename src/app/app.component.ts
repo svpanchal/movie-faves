@@ -15,6 +15,8 @@ export class AppComponent implements OnInit, OnDestroy {
   public moviesAll: Array<Movie> = [];
   public moviesFavorite: Array<Movie> = [];
   public isInputShown: boolean;
+  public isAllMoviesTableShown: boolean;
+  public isFavoritesTableShown: boolean;
 
   constructor(
     private _appStartupActions: AppStartupActions,
@@ -23,7 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.getMovies();
     this.isInputShown = false;
-
+    this.isAllMoviesTableShown = true;
   }
 
   public ngOnDestroy() { }
@@ -53,6 +55,16 @@ export class AppComponent implements OnInit, OnDestroy {
           console.log('HttpErrorResponse =>', err.error, err.message);
         }
       );
+  }
+
+  public showAllTableView(): void {
+    this.isAllMoviesTableShown = true;
+    this.isFavoritesTableShown = false;
+  }
+
+  public showFavoritesTableView(): void {
+    this.isFavoritesTableShown = true;
+    this.isAllMoviesTableShown = false;
   }
 
   public favoriteMovie(movie: Movie): void {
@@ -90,7 +102,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     movie.favorite = false;
 
-    if (movie.vote_average < 7) {
+    if (movie.vote_average <= 7) {
       const movieIndex = this.moviesFavorite.findIndex((mv: Movie) => mv.id === movie.id);
       this.moviesFavorite.splice(movieIndex, 1);
       this.sortMovieFavorites();
