@@ -8,6 +8,8 @@ $teal: #1b8aa4;
 $marigold: #ffbb33;
 $lemon: #fbdb64;
 $lightGrey: #f6f6f6;
+$darkGrey: darkgrey;
+$darkerGrey: #1E242E;
 
 .appContainer {
     font-family: 'Open Sans', sans-serif;
@@ -17,11 +19,20 @@ $lightGrey: #f6f6f6;
     justify-content: center;
     align-items: center;
     padding: 1em;
+    color: $darkerGrey;
 }
 .appHeader {
     font-family: 'Pacifico', cursive;
     color: $pink;
     font-size: 3em;
+}
+.tableHeader {
+    font-family: 'Pacifico', cursive;
+    color: $maroon;
+    font-size: 2.25em;
+    margin-bottom: 0.75em;
+    letter-spacing: 4px;
+    margin-left: 1em;
 }
 .appSubHeader {
     color: $teal;
@@ -31,11 +42,12 @@ $lightGrey: #f6f6f6;
 .moviesAllContainer, .moviesFavoriteContainer {
     display: flex;
     flex-flow: column;
+    margin-top: 4em;
 }
-.moviesAllTable .moviesFavesTable{
-    display: flex;
-    flex-flow: column;
-    padding: 1.5em;
+.moviesAllTable, .moviesFavesTable {
+    border: 2px solid $marigold;
+    border-radius: 12px;
+    padding: 1em;
 }
 .moviesAllHeaderRow, .moviesFavesHeaderRow {
     display: flex;
@@ -48,7 +60,7 @@ $lightGrey: #f6f6f6;
 .headerItem {
     flex: 1;
     padding-left: 10px;
-    // border: 1px solid salmon;
+    font-size: 1.1em;
 }
 .moviesAllDetailRow, .moviesFavesDetailRow {
     display: flex;
@@ -57,7 +69,7 @@ $lightGrey: #f6f6f6;
 .detailItem {
     flex: 1;
     padding: 15px 0px 15px 10px;
-    border-bottom: 1px solid gray;
+    border-bottom: 1.5px solid $darkGrey;
     // border: 1px solid blue;
 }
 .voteAvgInput {
@@ -70,7 +82,7 @@ $lightGrey: #f6f6f6;
     font-weight: bold;
 }
 .starOutline {
-    color: darkgrey;
+    color: $darkGrey;
 }
 .starFilled {
     color: $lemon;
@@ -78,9 +90,10 @@ $lightGrey: #f6f6f6;
 }
 .trashIcon {
     color: $navy;
+    margin-left: 0.75em;
 }
 .icon {
-    font-size: 1.5em;
+    font-size: 1.75em;
     cursor: pointer;
 }
 .editIcon {

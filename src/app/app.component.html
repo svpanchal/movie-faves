@@ -1,9 +1,9 @@
 <div class="appContainer">
   <div class="appHeader">Welcome to Rate Your Fave!</div>
-  <div class="appSubHeader">An application to organize and rate your favorite films</div>
+  <div class="appSubHeader">An application to sort, rate and pick your favorite films</div>
 
   <div class="moviesAllContainer">
-    <div>All Movies</div>
+    <div class="tableHeader">All Movies</div>
     <div class="moviesAllTable">
       <div class="moviesAllHeaderRow">
         <div class="headerItem Favorite">Favorite</div>
@@ -46,7 +46,8 @@
           <span *ngIf="!isInputShown">{{ movie?.vote_average}}</span>
           <input type="number" class="voteAvgInput" [(ngModel)]="movie.vote_average"
             (blur)="updateVoteAverage($event.target.value, movie)" *ngIf="isInputShown">
-          <i *ngIf="!isInputShown" class="fa fa-pencil editIcon" (click)="showInputForEditVoteAverage(movie.id)"></i>
+          <i *ngIf="!isInputShown" class="fa fa-pencil editIcon clickable"
+            (click)="showInputForEditVoteAverage(movie.id)"></i>
         </div>
         <div class="detailItem Popularity">{{ movie?.popularity}}</div>
         <div class="detailItem Overview">{{ movie?.overview}}</div>
@@ -61,7 +62,7 @@
   </div>
 
   <div class="moviesFavoriteContainer">
-    <div>Top Rate & Faves</div>
+    <div class="tableHeader">Top Rated & Favorites</div>
     <div class="moviesFavesTable">
       <div class="moviesFavesHeaderRow">
         <div class="headerItem Favorite">Favorite</div>
