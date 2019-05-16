@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public ngOnDestroy() { }
 
   private getMovies(): void {
-    this._appStartupActions.getMovieData(103)
+    this._appStartupActions.getMovieData(104)
       .subscribe(
         (response: TopRatedMoviesResponse) => {
           if (response) {
@@ -97,15 +97,6 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  private sortMovieFavorites(): void {
-    this.moviesFavorite.sort(function (a, b) {
-      const numA = a.vote_average;
-      const numB = b.vote_average;
-
-      return (numB - numA);
-    });
-  }
-
   public deleteMovie(movieId): void {
     if (!movieId) {
       console.log('ERROR: deleteMovie() - missing movieId');
@@ -114,6 +105,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const movieIndex = this.moviesAll.findIndex(movie => movie.id === movieId);
     this.moviesAll.splice(movieIndex, 1);
+  }
+
+  private sortMovieFavorites(): void {
+    this.moviesFavorite.sort(function (a, b) {
+      const numA = a.vote_average;
+      const numB = b.vote_average;
+
+      return (numB - numA);
+    });
   }
 
   public sortColumnAlphabetic(field: string): void {
@@ -203,13 +203,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const newAverageVoteNum = parseInt(newVoteAvg, 10);
     this.moviesFavorite = this.resetMovieFavoritesByAvgVote(newAverageVoteNum, movie);
-    this.moviesFavorite.sort(function (a, b) {
-      const numA = a.vote_average;
-      const numB = b.vote_average;
-
-      return (numB - numA);
-    });
-
+    this.sortMovieFavorites();
     this.isInputShown = false;
   }
 
